@@ -1,96 +1,48 @@
-Python and JavaScript are both highly versatile, multi-paradigm languages. While they share some similarities, their primary designs and common applications in modern development differ significantly.
-Python
-Main Programming Paradigms Python is designed as a general-purpose language that emphasizes readability
+After a company goes public, its stock price is primarily driven by a "see-saw" of supply and demand, which is influenced by investor perception and company performance
 1
-. Its supported paradigms include:
-Object-Oriented & Structured: These are fully supported by the core language
+.
+The Role of Supply, Demand, and Price
+The price of a stock changes based on the level of interest from the public
 2
-. Python's object model allows for the creation of custom types using the class statement
+.
+Price Increases: When more buyers see potential in a company and start buying its stocks, the demand increases
+2
+. This rising demand drives the stock price up, which in turn increases the company's overall market value and the value of the shares held by existing owners
+2
+.
+Price Decreases: Conversely, if a company appears to be losing profitability, investors may decide to sell their stocks to secure a profit before the value drops further
+1
+2
+. As more people sell and demand goes down, the stock price falls, leading to a decrease in the company's market value and potential losses for investors
+1
+.
+The Role of Investors and Company Performance
+Investors act as partial owners whose confidence dictates the stock's movement
 3
+. Their decisions are often based on a company's perceived and actual success:
+Funding Growth: Initial investments from the IPO help the company fund new initiatives to grow the business
+2
+. Successful growth attracts more investors
+2
+.
+Market Forces: A company’s performance is subject to unavoidable market forces, such as the fluctuating costs of materials, changes in production technology, and shifting labor costs
+1
 4
 .
-Procedural (Imperative): Python supports traditional step-by-step programming with standard control flow statements like if, for, and while
-3
+External Variables: Investor confidence can also be shaken by internal factors like changes in leadership and bad publicity, or external factors such as new laws and trade policies
+4
+.
+Why the Stock Market is Considered Risky
+The stock market is described as a highly unpredictable system for several reasons
+5
+:
+Perception vs. Reality: In this environment, appearing to lose value often leads to investors withdrawing their support, which causes the company to lose actual value
+4
+.
+Human Confidence: The market is heavily influenced by human confidence, which is a "difficult-to-track variable" that can trigger anything from economic booms to financial crises
+4
 5
 .
-Functional: It offers functional tools in the "Lisp tradition," including filter, map, and reduce functions, as well as list comprehensions and generator expressions
-6
-7
-.
-Reflective & Aspect-Oriented: These are supported through features like metaprogramming and metaobjects
-2
+Unpredictability: Because of these constant "day-to-day noises" and variables, most professionals advise against trying to make "quick cash" and instead promote reliable long-term investing
 5
-.
-Extensions: Paradigms like logic programming and design-by-contract are available via third-party extensions
-2
-.
-Typical Use Cases Python is often referred to as a "glue language" because it is purposely designed to integrate components written in different languages
-2
-.
-Artificial Intelligence and Machine Learning: Python is the "lingua franca" of data science and AI, supported by a massive ecosystem of libraries like TensorFlow, PyTorch, and scikit-learn
-8
-more_horiz
-.
-Scientific Computing: Libraries such as NumPy and SciPy make it a standard for numerical data processing and research
-11
-12
-.
-Web Development (Backend): It powers the server-side logic of websites through frameworks like Django, Flask, and FastAPI
-13
-.
-Education: Due to its "plain English" naming and clear syntax, it is the most common introductory programming language
-1
-14
-.
-Embedded Systems: Optimized variants like MicroPython and CircuitPython allow it to run on microcontrollers
-15
-16
-.
---------------------------------------------------------------------------------
-JavaScript
-Main Programming Paradigms JavaScript was originally designed as a "language for the masses" to add interactivity to web pages
-17
-.
-Object-Oriented (Prototype-based): Unlike Python’s class-based model, JavaScript uses prototypal inheritance, where objects inherit directly from other objects
-18
-19
-. Modern class syntax exists as "syntactic sugar" for this underlying system
-20
-.
-Functional: JavaScript has featured first-class functions from its inception and supports lexical closures and anonymous functions
-18
-more_horiz
-.
-Event-Driven: This is a core paradigm, utilizing an event loop to handle non-blocking I/O operations
-24
-25
-.
-Imperative & Procedural C-style syntax: It supports standard structured programming syntax like switch statements and while loops
-24
-26
-.
-Delegative: It natively supports patterns like Traits and Mixins through function-based delegation
-22
-.
-Typical Use Cases JavaScript is a core technology of the World Wide Web, used by 99% of all websites for client-side behavior
-27
-28
-.
-Web Development (Client-Side): It is used for dynamic content, such as Ajax for loading data without page refreshes, animations, and form validation
-28
-29
-.
-Server-Side Development: Runtimes like Node.js, Deno, and Bun allow JavaScript to be used for building scalable backend services
-26
-more_horiz
-.
-Cross-Platform Applications: Frameworks like Electron are used for desktop apps, while React Native and Cordova are used for mobile application development
-32
-.
-Game Development: It is frequently used for creating games that run directly within web browsers
-28
-.
-Embedded Systems: Through Node.js, it can be used for devices like the Raspberry Pi
-33
-34
 .

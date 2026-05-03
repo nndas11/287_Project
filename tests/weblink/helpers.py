@@ -1,5 +1,6 @@
 """Shared Selenium helpers for web-link-source NotebookLM tests."""
 import os
+import time
 from pathlib import Path
 
 from selenium.common.exceptions import StaleElementReferenceException
@@ -67,6 +68,11 @@ def open_notebook(driver, wait, notebook_name: str) -> None:
 
 def send_query_and_get_response(driver, wait, query: str) -> str:
     """Type query into the chat textarea, submit, and return the AI response text."""
+    # Snapshot completed-answer count BEFORE submitting. Each finished AI reply
+    # gets its own "Save to note" button, so once this count goes up we know
+    # the new answer has fully streamed.
+    initial_save_count = len(driver.find_elements(*_SAVE_NOTE))
+
     chat_input = wait.until(lambda d: (
         d.find_elements(By.CSS_SELECTOR, "textarea[placeholder='Start typing...']")
         or d.find_elements(By.CSS_SELECTOR, "textarea[placeholder*='Start']")
@@ -100,6 +106,16 @@ def send_query_and_get_response(driver, wait, query: str) -> str:
     ))
     wait.until(EC.invisibility_of_element_located(_THINKING))
 
+    # Strong completion signal: wait until a NEW Save-to-note button appears.
+    # NotebookLM only renders this button once the answer has finished streaming,
+    # so this prevents us from reading a half-streamed response.
+    try:
+        wait.until(lambda d: len(d.find_elements(*_SAVE_NOTE)) > initial_save_count)
+    except Exception:
+        # If the save-to-note signal never fires (UI change), fall through to
+        # the text-stability poll below — it provides a safety net.
+        pass
+
     # Get the LAST answer element — notebooks reused across tests accumulate chat
     # history, so the first matching element may be a previous test's response.
     answer_el = wait.until(lambda d: (
@@ -108,7 +124,26 @@ def send_query_and_get_response(driver, wait, query: str) -> str:
         or None
     ) and d.find_elements(By.XPATH,
         "//mat-card-content[contains(@class,'to-user-message-inner-content')]")[-1])
-    wait.until(lambda d: len((answer_el.text or "").strip()) > 20)
+
+    # Belt-and-braces: poll the answer text until it stops changing for ~1.5s.
+    # Catches any case where save-to-note appeared but DOM updates are still
+    # propagating into the text node.
+    prev_text = ""
+    stable = 0
+    for _ in range(60):  # up to 30s
+        try:
+            cur = answer_el.text.strip()
+        except Exception:
+            cur = ""
+        if cur and cur == prev_text:
+            stable += 1
+            if stable >= 3:
+                break
+        else:
+            stable = 0
+            prev_text = cur
+        time.sleep(0.5)
+
     return answer_el.text.strip()
 
 

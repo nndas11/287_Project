@@ -29,8 +29,14 @@ pip install -r requirements.txt
 
 **Run Selenium tests against NotebookLM (requires Chrome):**
 ```bash
+# Citation-based notebook tests
 RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python -m pytest -q tests/notebook/
+
+# Weblink test suite (TC1–TC10) — drives the same Chrome session
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python -m pytest -q tests/weblink/
 ```
+
+When `USER_DATA_DIR` is set, the `driver` fixture in `tests/conftest.py` reuses a persistent Selenium-only profile at `/tmp/notebooklm-selenium-session` (Chrome blocks DevTools on the real default profile). The first run requires a one-time manual Google sign-in in the launched Chrome window — the fixture waits up to 3 minutes for the URL to leave `accounts.google.com`. When `USER_DATA_DIR` is unset, a fresh temp profile is used in headless mode (sign-in flow won't work).
 
 **Start the FastAPI server:**
 ```bash
@@ -64,12 +70,14 @@ FastAPI app with three endpoints (`/embed`, `/similarity`, `/similarity/search`)
 
 ### Test structure: `tests/`
 
-Two categories of tests:
+Three categories of tests, all sharing the `driver` / `wait` session-scoped fixtures in `tests/conftest.py`:
 
-- `tests/support/` — Unit/integration tests for the `semantic` library and scoring helpers. These run without a browser and are always enabled.
-- `tests/notebook/` — Selenium tests that drive a real Chrome session against NotebookLM. Each test is gated behind `RUN_SELENIUM=1`. All notebook tests share the `driver` and `wait` session-scoped fixtures defined in `tests/conftest.py`.
+- `tests/support/` — Unit/integration tests for the `semantic` library, scoring helpers, and the FastAPI app. No browser required; always enabled.
+- `tests/notebook/` — Selenium tests gated behind `RUN_SELENIUM=1`. Each test follows the pattern: open a notebook → send a query → click citation 1 → collect highlighted passage text → write `expected.txt` / `actual.txt` → call `scripts/offline_scoring.compute_and_write_score()` → assert score ≥ threshold.
+- `tests/weblink/` — Selenium TC1–TC10 suite (also gated behind `RUN_SELENIUM=1`) covering web-link-source scenarios: no source, single source, multi-source, restricted/invalid URLs, out-of-scope queries, hallucination, retrieval relevance, partial relevance, unsupported content. Shared helpers live in `tests/weblink/helpers.py` (`open_notebook`, `send_query_and_get_response`, `click_citation_and_get_passage`, `citation_count`, `write_and_score`, `assert_ungrounded`). Each test targets a pre-existing notebook by name (e.g. `WebTest - No Source`) — these notebooks must exist in the signed-in Google account.
+- `tests/youtube/` — Selenium suite for YouTube-source notebooks. Re-exports the weblink helpers (chat UI is identical regardless of source type). Each test targets a pre-existing notebook (e.g. `YTTest - Manual Captions`, `YTTest - Auto Captions`).
 
-Each notebook test follows the same pattern: navigate to a notebook → send a query → click citation 1 → collect highlighted passage text → write `expected.txt` / `actual.txt` → call `scripts/offline_scoring.compute_and_write_score()` → assert score ≥ threshold.
+Source corpora used by some notebook tests are stored in `notebook_sources/` (markdown / txt) for reference.
 
 ### Scripts: `scripts/`
 
