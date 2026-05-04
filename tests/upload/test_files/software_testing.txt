@@ -1,0 +1,27 @@
+Software Testing Fundamentals
+
+Regression testing is a type of software testing that verifies that previously
+working functionality still works after changes are made to the codebase. It is
+performed after bug fixes, feature additions, or refactoring to ensure no new
+issues have been introduced.
+
+Unit testing focuses on testing individual components or functions in isolation.
+A unit test verifies that a single piece of code works as expected, independent
+of other parts of the system. Unit tests are fast to run and easy to debug.
+
+Integration testing checks that multiple components work correctly when combined.
+It bridges the gap between unit tests and end-to-end tests by verifying the
+interactions between modules, services, and external dependencies.
+
+Test coverage is a metric used to measure the percentage of source code executed
+during a test run. High test coverage generally indicates a more thoroughly tested
+codebase, though 100% coverage does not guarantee the absence of bugs.
+
+The testing pyramid is a concept that describes the ideal distribution of
+different test types: many unit tests at the base, fewer integration tests in the
+middle, and even fewer end-to-end tests at the top. This structure helps maintain
+a fast, reliable, and maintainable test suite.
+
+Exploratory testing is an informal, simultaneous approach to learning, test design,
+and test execution. Unlike scripted testing, exploratory testing relies on the
+tester's skill and intuition to discover unexpected defects.

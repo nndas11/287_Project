@@ -1,0 +1,18 @@
+Introduction to Neural Networks
+
+Neural networks are computational models loosely inspired by the structure of the
+human brain. They consist of layers of interconnected nodes, commonly called
+neurons or perceptrons, that process and transform input data.
+
+The first layer is the input layer, which receives raw data such as pixel values,
+text tokens, or numerical features. The output layer produces the final result,
+which may be a classification label, a probability score, or a continuous value.
+
+[Note: Detailed descriptions of hidden layers, activation functions (ReLU, sigmoid,
+tanh), weight initialization strategies, and the backpropagation algorithm are
+contained in Sections 3–7, which are not included in this text excerpt.]
+
+Training a neural network involves adjusting the weights of connections between
+neurons so that the network's predictions become more accurate over time. This
+process is guided by a loss function that measures the gap between predicted and
+actual outputs.

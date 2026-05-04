@@ -1,0 +1,20 @@
+Software Quality Assurance | Aseguramiento de Calidad de Software
+
+This document provides an overview of software testing concepts.
+Este documento proporciona una descripción general de los conceptos de pruebas de software.
+
+Unit testing verifies that individual components function correctly in isolation.
+Las pruebas unitarias verifican que los componentes individuales funcionan correctamente de forma aislada.
+
+Regression testing ensures that existing features continue to work after new changes.
+Las pruebas de regresión aseguran que las funciones existentes continúen funcionando después de nuevos cambios.
+
+Test automation reduces manual effort, increases test repeatability, and speeds up
+the feedback cycle for development teams.
+La automatización de pruebas reduce el esfuerzo manual, aumenta la repetibilidad
+y acelera el ciclo de retroalimentación para los equipos de desarrollo.
+
+Continuous integration pipelines run automated tests on every code commit, enabling
+teams to detect and fix defects quickly.
+Los pipelines de integración continua ejecutan pruebas automatizadas en cada
+confirmación de código, lo que permite a los equipos detectar y corregir defectos rápidamente.

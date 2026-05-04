@@ -1,0 +1,27 @@
+Agile Testing Methodology
+
+Agile testing is an iterative approach to software quality assurance that follows
+agile development principles. Testing is performed continuously throughout the
+development cycle rather than only at the end of a project.
+
+Continuous Integration (CI) is a practice where developers merge code changes into
+a shared repository frequently, often multiple times a day. Automated tests run on
+each merge to detect integration issues early and prevent defect accumulation.
+
+Test-Driven Development (TDD) is a software development approach where tests are
+written before the actual implementation code. The TDD cycle involves writing a
+failing test, writing the minimal code needed to pass it, and then refactoring
+for clarity and efficiency.
+
+Behavior-Driven Development (BDD) extends TDD by using natural language scenarios
+to define expected system behavior. BDD test cases are written in a Gherkin format
+(Given/When/Then) that can be understood by both technical teams and business
+stakeholders.
+
+In Agile, sprint retrospectives include reviewing the testing process and identifying
+improvements. Teams track metrics such as test pass rates, defect density, escaped
+defects, and test coverage trends across sprints to measure testing effectiveness.
+
+Shift-left testing is the practice of moving testing activities earlier in the
+development lifecycle, catching defects when they are cheaper and faster to fix,
+rather than waiting until a dedicated QA phase.

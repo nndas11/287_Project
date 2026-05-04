@@ -1,0 +1,9 @@
+The source provides an overview of essential software testing methodologies, detailing how regression testing ensures changes don't break existing features while unit testing isolates individual code components for verification
+1
+. It explores integration testing for module interactions and the testing pyramid concept, which advocates for a large base of unit tests to maintain a reliable test suite
+2
+3
+. Furthermore, the document highlights key metrics like test coverage and manual approaches such as exploratory testing, where testers use intuition to uncover defects
+2
+3
+.
