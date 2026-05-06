@@ -1,132 +1,167 @@
-# Semantic Similarity Project
+# NotebookLM Test Suite
 
-A Python project focused on semantic analysis and similarity search.
+Automated end-to-end tests for [NotebookLM](https://notebooklm.google.com/) using Selenium. Tests cover multiple source types, query patterns, grounding behaviour, and error states. Semantic similarity scoring is used to verify answer quality on grounded tests.
 
-**Quick Start**
+---
 
-- **Create venv:** `python3 -m venv .venv`
-- **Activate (macOS / zsh):** `source .venv/bin/activate`
-- **Install deps:** `pip install -r requirements.txt`
-
-**Run the API (local)**
-
-- Start the FastAPI app:
-
-  ```bash
-  uvicorn api.main:app --reload --host 127.0.0.1 --port 8000
-  ```
-
-- Open the minimal web UI at `http://127.0.0.1:8000/static/index.html` after the server starts.
-
-**Running tests**
-
-- Run the unit tests (fast):
-
-  ```bash
-  .venv/bin/python -m pytest -q
-  ```
-
-- Browser-based tests (Selenium / Playwright) are disabled by default. Enable them explicitly when you have the required browsers and drivers installed.
-
-  - Selenium example (uses your Chrome profile):
-
-    ```bash
-    RUN_SELENIUM=1 \
-    USER_DATA_DIR=/path/to/your/chrome-profile \
-    NOTEBOOKLM_ARTIFACTS=./artifacts \
-    SEMANTIC_SIM_THRESHOLD=0.65 \
-    .venv/bin/python -m pytest -s tests/test_notebooklm_selenium.py::test_verify_exact_passage_link -q
-    ```
-
-  - Playwright tests (if you have Playwright and browsers installed):
-
-    ```bash
-    PLAYWRIGHT_TEST=1 NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python -m pytest -q tests/test_notebooklm.py
-    ```
-
-**Important environment variables**
-
-- `NOTEBOOKLM_ARTIFACTS`: Directory to save captured HTML, screenshots, and extracted artifacts (default: `./artifacts`).
-- `SEMANTIC_SIM_THRESHOLD`: Floating-point threshold for semantic similarity assertions (default: `0.65`).
-- `RUN_SELENIUM`: Set to `1` to enable Selenium tests under pytest.
-- `PLAYWRIGHT_TEST`: Set to `1` to enable Playwright capture tests.
-- `USER_DATA_DIR`: When using Selenium + Chrome, set this to your Chrome profile directory if you want to reuse bookmarks/history (close Chrome first or use a copy of the profile to avoid lock errors).
-
-**Artifacts & scoring**
-
-- Browser tests write extracted texts and a computed semantic similarity score into the `NOTEBOOKLM_ARTIFACTS` directory (by default `./artifacts`).
-- The Selenium test (`tests/test_notebooklm_selenium.py`) computes embeddings with `sentence-transformers` and writes a score file (`semantic_score.txt`). You can run a separate offline scoring test by creating two text files (expected/actual) in the artifacts folder and computing similarity with the `semantic` package.
-
-**Helpers for artifact extraction and offline scoring**
-
-This repo includes two helper scripts to standardize the flow from browser capture -> artifact extraction -> offline scoring:
-
-- `scripts/generate_expected_actual.py` — Parse an HTML artifact (e.g. `notebooklm_page.html`) and extract the AI answer and highlighted source passage, writing `actual.txt` and `expected.txt` into the artifacts directory. This helper uses BeautifulSoup; install with:
-
-  ```bash
-  .venv/bin/python -m pip install beautifulsoup4
-  ```
-
-- `scripts/offline_scoring.py` — Reusable scoring helper (importable) that reads `expected.txt` and `actual.txt` from the artifacts directory, computes embeddings using the `semantic` package, writes `semantic_score.txt`, and returns the similarity score. It optionally enforces a threshold (raises an AssertionError if the score is below the configured threshold).
-
-  The helper also appends a summary row to `semantic_results.csv` (in the same
-  artifacts directory) for multi-test reporting. Each CSV row contains:
-
-  - `timestamp` (ISO 8601 UTC, timezone-aware)
-  - `test_name` (a short identifier provided by the caller)
-  - `expected` (single-line source/passage text)
-  - `actual` (single-line answer text)
-  - `semantic_score` (floating score with 6 decimals)
-
-  When calling the helper programmatically you can pass `test_name` to label
-  each row. The CSV filename can be changed with the `results_fname` argument.
-
-Example workflow (end-to-end):
-
-1. Run the Selenium/Playwright capture so the NotebookLM page HTML is saved under the artifacts directory (default `./artifacts`).
-
-2. Extract expected/actual from the HTML (if you didn't already write them directly):
+## Setup
 
 ```bash
-NOTEBOOKLM_ARTIFACTS=./artifacts python scripts/generate_expected_actual.py
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-3. Compute and persist the semantic score (helper will write `semantic_score.txt`):
+---
+
+## Test Suites
+
+| Suite | Folder | TCs | Source type |
+|---|---|---|---|
+| Weblink | `tests/weblink/` | TC1–TC20 | Public web URLs |
+| Google Workspace | `tests/gworkspace/` | TC1–TC20 | Google Docs / Sheets / Slides |
+| YouTube | `tests/youtube/` | TC1–TC12 | YouTube videos |
+| Upload | `tests/upload/` | TC1–TC12 | Uploaded files (PDF, TXT) |
+| Notebook (legacy) | `tests/notebook/` | 7 tests | Markdown / text sources |
+| Unit / API | `tests/support/` | 4 files | No browser required |
+
+---
+
+## Running Tests
+
+All Selenium suites require Chrome and a signed-in Google account. On first run a Chrome window opens and waits up to 3 minutes for manual Google sign-in — the session is then reused for the rest of the run.
+
+**Unit tests only (no browser):**
+```bash
+.venv/bin/python -m pytest -q
+```
+
+**Weblink suite (TC1–TC20):**
+```bash
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/weblink/
+```
+
+**Google Workspace suite (TC1–TC20):**
+```bash
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/gworkspace/
+```
+
+**YouTube suite (TC1–TC12):**
+```bash
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/youtube/
+```
+
+**Upload suite (TC1–TC12):**
+```bash
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/upload/
+```
+
+**Run a single test file:**
+```bash
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -s tests/weblink/test_tc2_single_source.py
+```
+
+The `-s` flag prints the AI answer and cited passage live as each test runs.
+
+---
+
+## HTML Reports
+
+Each suite generates a self-contained HTML report automatically at the end of the run:
+
+| Suite | Report file |
+|---|---|
+| Weblink | `artifacts/weblink_report.html` |
+| Google Workspace | `artifacts/gworkspace_report.html` |
+
+Reports include a summary (Total / Passed / Failed / Skipped) and a per-test table showing TC number, description, pass/fail badge, and failure reason.
+
+---
+
+## Notebooks Required
+
+Each test targets a pre-existing NotebookLM notebook by name. The notebooks must exist in the signed-in Google account before running the tests.
+
+**Weblink notebooks:**
+
+| Notebook name | Source |
+|---|---|
+| `WebTest - No Source` | Empty (no source) |
+| `WebTest - Python Wiki` | https://en.wikipedia.org/wiki/Python_(programming_language) |
+| `WebTest - Scripting Languages` | Python Wiki + JavaScript Wiki |
+| `WebTest - Restricted Source` | https://www.linkedin.com/feed/ |
+| `WebTest - Invalid Source` | https://www.notarealwebsite-xyzabc123456.com/fake-article |
+| `WebTest - Climate Change` | https://en.wikipedia.org/wiki/Climate_change |
+| `WebTest - Software Testing` | https://en.wikipedia.org/wiki/Software_testing |
+
+**Google Workspace notebooks:**
+
+| Notebook name | Source type |
+|---|---|
+| `GSuite - Employee Handbook` | Google Doc — remote work policy, benefits |
+| `GSuite - Q3 Financial Report (View Only)` | Google Doc (View only) — Q3 revenue figures |
+| `GSuite - PM Glossary` | Google Doc — project management glossary |
+| `GSuite - Annual Report 2024` | Google Doc — FY2024 annual report |
+| `GSuite - Multi Quarter Reports` | Two Google Docs — Q1 + Q2 project reports |
+| `GSuite - Product Specs` | Google Doc — Product Alpha vs Beta specs |
+| `GSuite - Budget Spreadsheet` | Google Doc with table — Q2 budget data |
+| `GSuite - Sparse Sales Data` | Google Doc with table — incomplete sales data |
+| `GSuite - Chart Only Slides` | Google Slides — image-only charts, no text values |
+| `GSuite - Private Drive Doc` | Google Drive link — restricted, not shared |
+
+---
+
+## Environment Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `RUN_SELENIUM` | unset | Set to `1` to enable Selenium tests |
+| `USER_DATA_DIR` | unset | Path to Chrome profile (close Chrome first) |
+| `NOTEBOOKLM_ARTIFACTS` | `./artifacts` | Directory for test outputs and reports |
+| `SEMANTIC_SIM_THRESHOLD` | `0.65` | Default cosine similarity pass threshold |
+| `WEBDRIVER_WAIT` | `120` | Selenium WebDriverWait timeout in seconds |
+
+---
+
+## Artifacts
+
+Runtime outputs written to `NOTEBOOKLM_ARTIFACTS` (default `./artifacts`):
+
+| File | Written by | Purpose |
+|---|---|---|
+| `expected.txt` | Grounded tests | Cited source passage |
+| `actual.txt` | Grounded tests | AI answer text |
+| `semantic_score.txt` | `offline_scoring.py` | Latest similarity score |
+| `semantic_results.csv` | `offline_scoring.py` | Append-only log of all scored runs |
+| `weblink_report.html` | Weblink conftest | HTML test report |
+| `gworkspace_report.html` | GWorkspace conftest | HTML test report |
+
+---
+
+## Summary Report
+
+After running tests, generate aggregated stats from the CSV:
 
 ```bash
-NOTEBOOKLM_ARTIFACTS=./artifacts SEMANTIC_SIM_THRESHOLD=0.65 python -c "from scripts.offline_scoring import compute_and_write_score; print(compute_and_write_score('./artifacts', threshold=0.65))"
+NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python scripts/summary_report.py
 ```
 
-4. Or run the offline pytest which uses the same helper (skips if artifacts are missing):
+Add `--save-plot` to save a histogram PNG (requires `matplotlib`).
+
+---
+
+## FastAPI (Semantic Similarity API)
+
+A local REST API exposing the semantic similarity engine:
 
 ```bash
-NOTEBOOKLM_ARTIFACTS=./artifacts SEMANTIC_SIM_THRESHOLD=0.65 .venv/bin/python -m pytest -q tests/test_offline_scoring.py
+uvicorn api.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Viewing aggregated results
-
-- After running one or more tests that call the scoring helper, open the CSV:
-
-  ```bash
-  cat ./artifacts/semantic_results.csv | sed -n '1,200p'
-  ```
-
-- You can also load the CSV into a spreadsheet or use Python/pandas for analysis.
-
-You can run multiple Selenium tests (single Chrome session) and then view the CSV
-
-```bash
-RUN_SELENIUM=1 USER_DATA_DIR=/tmp/selenium-profile-copy NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python -m pytest -q tests/notebook
-cat ./artifacts/semantic_results.csv
-```
-
-Notes:
-
-- The Selenium test writes `expected.txt` and `actual.txt` directly and then call the scoring helper;
-
-- If the NotebookLM DOM changes or the artifact filenames differ, update `scripts/generate_expected_actual.py` selectors accordingly or write `expected.txt`/`actual.txt` directly from the capture script.
-
-**Selenium notes / troubleshooting**
-
-- If you see `session not created: Chrome instance exited`, it often means the Chrome profile is in use or incompatible with the driver. Close Chrome, or pass a copy of the profile to `USER_DATA_DIR`.
-- If you prefer isolation, run Chrome with a fresh temporary profile (omit `USER_DATA_DIR`) so Chrome/Chromedriver create a new profile for the test run.
+Endpoints: `POST /embed`, `POST /similarity`, `POST /similarity/search`.
+Web UI available at `http://127.0.0.1:8000/static/index.html`.

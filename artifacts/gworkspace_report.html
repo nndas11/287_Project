@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Google Workspace · NotebookLM Test Report</title>
+  <style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+     margin:0;padding:32px;background:#f5f7fa;color:#1e293b}
+h1{font-size:1.4rem;margin:0 0 4px}
+.meta{color:#94a3b8;font-size:.82rem;margin-bottom:28px}
+.summary{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.card{background:#fff;border-radius:10px;padding:18px 28px;
+      box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center;min-width:90px}
+.card .num{font-size:2rem;font-weight:700;line-height:1}
+.card .lbl{font-size:.72rem;color:#94a3b8;text-transform:uppercase;
+           letter-spacing:.06em;margin-top:4px}
+.blue{color:#3b82f6}.green{color:#22c55e}.red{color:#ef4444}.gray{color:#94a3b8}
+.purple{color:#8b5cf6}.amber{color:#f59e0b}
+table{width:100%;border-collapse:collapse;background:#fff;
+      border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+th{background:#f8fafc;padding:10px 16px;font-size:.75rem;text-transform:uppercase;
+   letter-spacing:.06em;color:#64748b;border-bottom:2px solid #e2e8f0;text-align:left}
+td{padding:11px 16px;border-bottom:1px solid #f1f5f9;
+   font-size:.88rem;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.tc{font-weight:700;color:#64748b;width:52px}
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;
+       font-size:.72rem;font-weight:700;letter-spacing:.04em}
+.pass{background:#dcfce7;color:#15803d}
+.fail{background:#fee2e2;color:#b91c1b}
+.skip{background:#f1f5f9;color:#64748b}
+.cx-low{background:#dcfce7;color:#15803d}
+.cx-med{background:#fef3c7;color:#b45309}
+.cx-high{background:#fee2e2;color:#b91c1b}
+.reason{color:#b91c1b;font-size:.78rem;font-family:'SFMono-Regular',Consolas,monospace;
+        white-space:pre-wrap;word-break:break-all;max-width:480px}
+.dur{font-size:.82rem;color:#475569;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dur-med{color:#b45309}.dur-slow{color:#b91c1b}
+.num-cell{font-size:.82rem;color:#475569;text-align:right;padding-right:24px}
+</style>
+</head>
+<body>
+  <h1>Google Workspace &mdash; NotebookLM Test Report</h1>
+  <p class="meta">Generated: 2026-05-06  00:15:36</p>
+
+  <div class="summary">
+    <div class="card"><div class="num blue">20</div><div class="lbl">Total</div></div>
+    <div class="card"><div class="num green">10</div><div class="lbl">Passed</div></div>
+    <div class="card"><div class="num red">10</div><div class="lbl">Failed</div></div>
+    <div class="card"><div class="num gray">0</div><div class="lbl">Skipped</div></div>
+    <div class="card"><div class="num purple">188.0s</div><div class="lbl">Total Duration</div></div>
+    <div class="card"><div class="num amber">5.4</div><div class="lbl">Avg Complexity</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>TC</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>LOC</th>
+        <th>Complexity</th>
+        <th>Failure Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tc">TC10</td>
+        <td>Restricted Source</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">1.1s</span></td>
+        <td class="num-cell">57</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 4">Low&nbsp;(4)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC11</td>
+        <td>test_exact_content_retrieval</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">18.8s</span></td>
+        <td class="num-cell">33</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 4">Low&nbsp;(4)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC12</td>
+        <td>test_restricted_view_retrieval</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">11.5s</span></td>
+        <td class="num-cell">35</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 4">Low&nbsp;(4)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC13</td>
+        <td>test_unclear_query_retrieval</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">13.3s</span></td>
+        <td class="num-cell">37</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 6">Med&nbsp;(6)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC14</td>
+        <td>test_summarization_single_source</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">13.8s</span></td>
+        <td class="num-cell">36</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 5">Low&nbsp;(5)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC15</td>
+        <td>test_multi_source_summary</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">17.0s</span></td>
+        <td class="num-cell">42</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 7">Med&nbsp;(7)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC16</td>
+        <td>test_comparison_query</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">13.4s</span></td>
+        <td class="num-cell">43</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 7">Med&nbsp;(7)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC17</td>
+        <td>test_table_query_full_data</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">11.7s</span></td>
+        <td class="num-cell">37</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 6">Med&nbsp;(6)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC18</td>
+        <td>test_table_partial_data</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">21.9s</span></td>
+        <td class="num-cell">48</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 8">Med&nbsp;(8)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC19</td>
+        <td>test_table_data_unavailable</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.8s</span></td>
+        <td class="num-cell">35</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 3">Low&nbsp;(3)</span></td>
+        <td><span class="reason">TC19 - AssertionError: Expected zero citations — chart values are not extractable, got 15
+assert 15 == 0</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC1</td>
+        <td>Exact Retrieval</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">9.7s</span></td>
+        <td class="num-cell">43</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 4">Low&nbsp;(4)</span></td>
+        <td><span class="reason">TC1 - AssertionError: Semantic similarity 0.006256 is below threshold 0.3</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC20</td>
+        <td>test_restricted_source_access</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td><span class="dur ">1.2s</span></td>
+        <td class="num-cell">42</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 4">Low&nbsp;(4)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC2</td>
+        <td>Restricted View</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">9.8s</span></td>
+        <td class="num-cell">45</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 4">Low&nbsp;(4)</span></td>
+        <td><span class="reason">TC2 - AssertionError: Semantic similarity 0.076531 is below threshold 0.3</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC3</td>
+        <td>Unclear Query</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.4s</span></td>
+        <td class="num-cell">49</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 6">Med&nbsp;(6)</span></td>
+        <td><span class="reason">TC3 - AssertionError: Expected answer to mention velocity/story points/agile, got:
+  The system was unable to answer.
+assert False
+ +  where False = any(&lt;generator object test_unclear_query_retrieval.&lt;locals&gt;.&lt;genexpr&gt; at 0x125eb8120&gt;)</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC4</td>
+        <td>Summarization</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.3s</span></td>
+        <td class="num-cell">48</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 5">Low&nbsp;(5)</span></td>
+        <td><span class="reason">TC4 - AssertionError: Expected a substantive summary (&gt;=30 words), got: The system was unable to answer.
+assert 6 &gt;= 30
+ +  where 6 = len(['The', 'system', 'was', 'unable', 'to', 'answer.'])
+ +    where ['The', 'system', 'was', 'unable', 'to', 'answer.'] = &lt;built-in method split of str object at 0x125cd4d50&gt;()
+ +      where &lt;built-in method split of str object at 0x125cd4d50&gt; = 'The system was una</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC5</td>
+        <td>Multi-Source Summary</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.9s</span></td>
+        <td class="num-cell">56</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 7">Med&nbsp;(7)</span></td>
+        <td><span class="reason">TC5 - AssertionError: Expected answer to cover content from at least one quarterly report:
+  The system was unable to answer.
+assert (False or False)</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC6</td>
+        <td>Comparison</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.8s</span></td>
+        <td class="num-cell">56</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 7">Med&nbsp;(7)</span></td>
+        <td><span class="reason">TC6 - AssertionError: Expected both products to be mentioned in the comparison:
+  The system was unable to answer.
+assert ('alpha' in 'the system was unable to answer.')</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC7</td>
+        <td>Table Query (Full)</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.1s</span></td>
+        <td class="num-cell">54</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 6">Med&nbsp;(6)</span></td>
+        <td><span class="reason">TC7 - AssertionError: Expected specific budget figures in the answer:
+  The system was unable to answer.
+assert False
+ +  where False = any(&lt;generator object test_table_query_full_data.&lt;locals&gt;.&lt;genexpr&gt; at 0x125eb9620&gt;)</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC8</td>
+        <td>Table Query (Partial)</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.6s</span></td>
+        <td class="num-cell">62</td>
+        <td><span class="badge cx-med" title="Cyclomatic complexity: 8">Med&nbsp;(8)</span></td>
+        <td><span class="reason">TC8 - AssertionError: Expected either partial data or acknowledgment of gaps:
+  The system was unable to answer.
+assert (False or False)</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC9</td>
+        <td>Table Query (N/A)</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="dur ">5.7s</span></td>
+        <td class="num-cell">48</td>
+        <td><span class="badge cx-low" title="Cyclomatic complexity: 3">Low&nbsp;(3)</span></td>
+        <td><span class="reason">TC9 - AssertionError: Expected zero citations — chart values are not extractable, got 15
+assert 15 == 0</span></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

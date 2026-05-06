@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Weblink · NotebookLM Test Report</title>
+  <style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+     margin:0;padding:32px;background:#f5f7fa;color:#1e293b}
+h1{font-size:1.4rem;margin:0 0 4px}
+.meta{color:#94a3b8;font-size:.82rem;margin-bottom:28px}
+.summary{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.card{background:#fff;border-radius:10px;padding:18px 28px;
+      box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center;min-width:90px}
+.card .num{font-size:2rem;font-weight:700;line-height:1}
+.card .lbl{font-size:.72rem;color:#94a3b8;text-transform:uppercase;
+           letter-spacing:.06em;margin-top:4px}
+.blue{color:#3b82f6}.green{color:#22c55e}.red{color:#ef4444}.gray{color:#94a3b8}
+table{width:100%;border-collapse:collapse;background:#fff;
+      border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+th{background:#f8fafc;padding:10px 16px;font-size:.75rem;text-transform:uppercase;
+   letter-spacing:.06em;color:#64748b;border-bottom:2px solid #e2e8f0;text-align:left}
+td{padding:11px 16px;border-bottom:1px solid #f1f5f9;
+   font-size:.88rem;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.tc{font-weight:700;color:#64748b;width:52px}
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;
+       font-size:.72rem;font-weight:700;letter-spacing:.04em}
+.pass{background:#dcfce7;color:#15803d}
+.fail{background:#fee2e2;color:#b91c1b}
+.skip{background:#f1f5f9;color:#64748b}
+.reason{color:#b91c1b;font-size:.78rem;font-family:'SFMono-Regular',Consolas,monospace;
+        white-space:pre-wrap;word-break:break-all;max-width:480px}
+</style>
+</head>
+<body>
+  <h1>Weblink &mdash; NotebookLM Test Report</h1>
+  <p class="meta">Generated: 2026-05-05  22:52:07</p>
+
+  <div class="summary">
+    <div class="card"><div class="num blue">9</div><div class="lbl">Total</div></div>
+    <div class="card"><div class="num green">7</div><div class="lbl">Passed</div></div>
+    <div class="card"><div class="num red">2</div><div class="lbl">Failed</div></div>
+    <div class="card"><div class="num gray">0</div><div class="lbl">Skipped</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>TC</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Failure Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tc">TC10</td>
+        <td>Unsupported Content</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="reason">TC10 - AssertionError: Expected an ungrounded response containing one of ['not mentioned', 'no information', &quot;sources don't&quot;, 'not provided', 'unable to find', 'not in the sources', &quot;don't contain&quot;, 'not covered', 'not address', 'salary'], but got:
+The provided source, which is a Wikipedia article about the Python programming language, does not contain any information or recipes for baking a choco</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC2</td>
+        <td>Single Source (Precise)</td>
+        <td><span class="badge fail">FAIL</span></td>
+        <td><span class="reason">TC2 - AssertionError: Semantic similarity 0.267314 is below threshold 0.3</span></td>
+      </tr>
+      <tr>
+        <td class="tc">TC3</td>
+        <td>Multi-Source</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC4</td>
+        <td>Restricted Link</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC5</td>
+        <td>Invalid URL</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC6</td>
+        <td>Out-of-Scope Query</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC7</td>
+        <td>Hallucination Check</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC8</td>
+        <td>Retrieval Relevance</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC9</td>
+        <td>Partial Relevance</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

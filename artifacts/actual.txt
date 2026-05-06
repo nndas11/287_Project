@@ -1,15 +1,1 @@
-The sources state that test automation offers several key benefits for development teams:
-Efficiency and Consistency: It reduces manual effort and increases the repeatability of tests
-1
-.
-Faster Feedback: Automation speeds up the feedback cycle, allowing teams to understand the impact of changes more quickly
-1
-.
-Continuous Integration: Automated tests are run within continuous integration pipelines on every code commit
-1
-2
-.
-Rapid Defect Resolution: By running these tests automatically, teams are able to detect and fix defects quickly
-1
-2
-.
+The system was unable to answer.

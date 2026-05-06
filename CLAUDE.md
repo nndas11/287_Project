@@ -29,11 +29,21 @@ pip install -r requirements.txt
 
 **Run Selenium tests against NotebookLM (requires Chrome):**
 ```bash
-# Citation-based notebook tests
-RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python -m pytest -q tests/notebook/
+# Weblink suite (TC1–TC20)
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/weblink/
 
-# Weblink test suite (TC1–TC10) — drives the same Chrome session
-RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts .venv/bin/python -m pytest -q tests/weblink/
+# Google Workspace suite (TC1–TC20)
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/gworkspace/
+
+# YouTube suite (TC1–TC12)
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/youtube/
+
+# Upload suite (TC1–TC12)
+RUN_SELENIUM=1 USER_DATA_DIR=/path/to/chrome-profile NOTEBOOKLM_ARTIFACTS=./artifacts \
+  .venv/bin/python -m pytest -q tests/upload/
 ```
 
 When `USER_DATA_DIR` is set, the `driver` fixture in `tests/conftest.py` reuses a persistent Selenium-only profile at `/tmp/notebooklm-selenium-session` (Chrome blocks DevTools on the real default profile). The first run requires a one-time manual Google sign-in in the launched Chrome window — the fixture waits up to 3 minutes for the URL to leave `accounts.google.com`. When `USER_DATA_DIR` is unset, a fresh temp profile is used in headless mode (sign-in flow won't work).
@@ -55,7 +65,7 @@ python scripts/augment_questions.py --source artifacts/semantic_results.csv --ou
 
 ## Architecture
 
-The project tests [NotebookLM](https://notebooklm.google.com/) by automating queries via Selenium, capturing AI answers and source citations, then asserting semantic similarity between the cited passage (`expected`) and the AI answer (`actual`).
+The project tests [NotebookLM](https://notebooklm.google.com/) by automating queries via Selenium, capturing AI answers and source citations, then asserting semantic similarity between a known expected string and the AI answer (`actual`).
 
 ### Core library: `semantic/`
 
@@ -70,14 +80,25 @@ FastAPI app with three endpoints (`/embed`, `/similarity`, `/similarity/search`)
 
 ### Test structure: `tests/`
 
-Three categories of tests, all sharing the `driver` / `wait` session-scoped fixtures in `tests/conftest.py`:
+All Selenium suites share the `driver` / `wait` session-scoped fixtures in `tests/conftest.py`.
 
 - `tests/support/` — Unit/integration tests for the `semantic` library, scoring helpers, and the FastAPI app. No browser required; always enabled.
-- `tests/notebook/` — Selenium tests gated behind `RUN_SELENIUM=1`. Each test follows the pattern: open a notebook → send a query → click citation 1 → collect highlighted passage text → write `expected.txt` / `actual.txt` → call `scripts/offline_scoring.compute_and_write_score()` → assert score ≥ threshold.
-- `tests/weblink/` — Selenium TC1–TC10 suite (also gated behind `RUN_SELENIUM=1`) covering web-link-source scenarios: no source, single source, multi-source, restricted/invalid URLs, out-of-scope queries, hallucination, retrieval relevance, partial relevance, unsupported content. Shared helpers live in `tests/weblink/helpers.py` (`open_notebook`, `send_query_and_get_response`, `click_citation_and_get_passage`, `citation_count`, `write_and_score`, `assert_ungrounded`). Each test targets a pre-existing notebook by name (e.g. `WebTest - No Source`) — these notebooks must exist in the signed-in Google account.
-- `tests/youtube/` — Selenium suite for YouTube-source notebooks. Re-exports the weblink helpers (chat UI is identical regardless of source type). Each test targets a pre-existing notebook (e.g. `YTTest - Manual Captions`, `YTTest - Auto Captions`).
 
-Source corpora used by some notebook tests are stored in `notebook_sources/` (markdown / txt) for reference.
+- `tests/notebook/` — Selenium tests gated behind `RUN_SELENIUM=1`. Each test: opens a notebook → sends a query → clicks citation 1 → collects highlighted passage text → calls `scripts/offline_scoring.compute_and_write_score()` → asserts score ≥ threshold. Source corpora in `notebook_sources/`.
+
+- `tests/weblink/` — TC1–TC20 (gated behind `RUN_SELENIUM=1`). Covers: no source, single source, multi-source, restricted/invalid URLs, out-of-scope, hallucination, retrieval relevance, partial relevance, unsupported content. TC1–TC10 are the primary cases; TC11–TC20 are additional runs against the same notebooks.
+  - Shared helpers in `tests/weblink/helpers.py`: `open_notebook`, `send_query_and_get_response`, `click_citation_and_get_passage`, `citation_count`, `write_and_score`, `assert_ungrounded`.
+  - `tests/weblink/conftest.py` generates `artifacts/weblink_report.html` at session end.
+  - Notebooks required: `WebTest - No Source`, `WebTest - Python Wiki`, `WebTest - Scripting Languages`, `WebTest - Restricted Source`, `WebTest - Invalid Source`, `WebTest - Climate Change`, `WebTest - Software Testing`.
+
+- `tests/gworkspace/` — TC1–TC20 (gated behind `RUN_SELENIUM=1`). Covers: exact retrieval, view-only access, unclear queries, summarization, multi-source summary, comparison, table extraction (full/partial/unavailable), and restricted Drive documents. TC1–TC10 are the primary cases; TC11–TC20 are additional runs.
+  - Re-exports helpers from `tests/weblink/helpers.py` (chat UI is identical regardless of source type).
+  - `tests/gworkspace/conftest.py` generates `artifacts/gworkspace_report.html` at session end.
+  - Notebooks required: `GSuite - Employee Handbook`, `GSuite - Q3 Financial Report (View Only)`, `GSuite - PM Glossary`, `GSuite - Annual Report 2024`, `GSuite - Multi Quarter Reports`, `GSuite - Product Specs`, `GSuite - Budget Spreadsheet`, `GSuite - Sparse Sales Data`, `GSuite - Chart Only Slides`, `GSuite - Private Drive Doc`.
+
+- `tests/youtube/` — TC1–TC12 (gated behind `RUN_SELENIUM=1`). Covers: manual captions, auto captions, low-quality captions, no captions, invalid URL, restricted video, mixed/unsupported language, comparison queries, quiz generation, out-of-scope, complex explanation. Re-exports weblink helpers.
+
+- `tests/upload/` — TC1–TC12 (gated behind `RUN_SELENIUM=1`). Covers: no source, valid text/PDF upload, unsupported format, corrupted doc, partial text, out-of-scope, hallucination, multi-document, mixed/unsupported language, summary generation. Test files in `tests/upload/test_files/`.
 
 ### Scripts: `scripts/`
 
@@ -88,16 +109,18 @@ Source corpora used by some notebook tests are stored in `notebook_sources/` (ma
 
 ### Artifacts: `artifacts/`
 
-Runtime outputs written by tests and scripts. Key files:
+Runtime outputs written by tests and scripts:
 
 | File | Written by | Purpose |
 |---|---|---|
-| `expected.txt` | notebook tests / `generate_expected_actual.py` | Source passage text |
-| `actual.txt` | notebook tests / `generate_expected_actual.py` | AI answer text |
+| `expected.txt` | Grounded tests | Cited source passage or curated expected string |
+| `actual.txt` | Grounded tests | AI answer text |
 | `semantic_score.txt` | `offline_scoring.py` | Latest single score |
 | `semantic_results.csv` | `offline_scoring.py` | Append-only log of all test runs |
 | `semantic_summary.json/csv` | `summary_report.py` | Aggregated metrics |
 | `augmented_questions.jsonl` | `augment_questions.py` | LLM-augmented test queries |
+| `weblink_report.html` | `tests/weblink/conftest.py` | Weblink HTML test report |
+| `gworkspace_report.html` | `tests/gworkspace/conftest.py` | GWorkspace HTML test report |
 
 ## Key environment variables
 
@@ -107,8 +130,18 @@ Runtime outputs written by tests and scripts. Key files:
 | `SEMANTIC_SIM_THRESHOLD` | `0.65` | Minimum passing cosine similarity score |
 | `RUN_SELENIUM` | unset | Set to `1` to enable Selenium test execution |
 | `USER_DATA_DIR` | unset | Chrome profile path for Selenium (must be closed first) |
-| `PLAYWRIGHT_TEST` | unset | Set to `1` to enable Playwright tests |
 | `WEBDRIVER_WAIT` | `120` | Selenium WebDriverWait timeout in seconds |
+
+## HTML Reports
+
+After any Selenium run, open the generated report in a browser:
+
+```bash
+open artifacts/weblink_report.html
+open artifacts/gworkspace_report.html
+```
+
+Each report shows: Total / Passed / Failed / Skipped summary cards, and a per-test table with TC number, description, pass/fail badge, and failure reason for any failing test.
 
 ## CI
 

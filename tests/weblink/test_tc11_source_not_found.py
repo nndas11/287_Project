@@ -1,9 +1,9 @@
-"""TC1 — No Source Handling
+"""TC11 — No Source Handling (duplicate run of TC1)
 Category  : No Source Handling
 Query type: Ambiguous
 Source    : None (empty notebook)
 Grounding : Ungrounded
-Expected  : NotebookLM tells the user to upload sources first.
+Expected  : Zero citations — notebook has no sources.
 """
 import pytest
 from tests.weblink.helpers import (
@@ -12,6 +12,7 @@ from tests.weblink.helpers import (
 
 NOTEBOOK_NAME = "WebTest - No Source"
 TEST_QUERY = "Summarize the main topics covered in this notebook."
+
 
 def test_no_source_handling(driver, wait):
     try:
@@ -23,4 +24,4 @@ def test_no_source_handling(driver, wait):
             "Expected zero citations — notebook has no sources"
         )
     except Exception as exc:
-        pytest.xfail(f"TC1 - {type(exc).__name__}: {exc}")
+        pytest.xfail(f"TC11 - {type(exc).__name__}: {exc}")

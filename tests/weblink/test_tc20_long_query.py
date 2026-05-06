@@ -1,4 +1,4 @@
-"""TC10 — Unsupported Query
+"""TC20 — Unsupported Query (duplicate run of TC10)
 Category  : Unsupported
 Query type: Precise
 Source    : Public web (Wikipedia — Python programming language)
@@ -7,9 +7,6 @@ Expected  : Response clearly states the information is not present in the source
 
 NotebookLM source URL:
   https://en.wikipedia.org/wiki/Python_(programming_language)
-
-Note: citation_count is not asserted — NotebookLM may attach a citation while
-still reporting the specific data is unsupported.
 """
 import pytest
 from tests.weblink.helpers import (
@@ -38,4 +35,4 @@ def test_unsupported_query(driver, wait):
             "cannot find", "can't find",
         ])
     except Exception as exc:
-        pytest.xfail(f"TC10 - {type(exc).__name__}: {exc}")
+        pytest.xfail(f"TC20 - {type(exc).__name__}: {exc}")
