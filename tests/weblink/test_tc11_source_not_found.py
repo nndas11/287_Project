@@ -1,4 +1,4 @@
-"""TC11 — No Source Handling (duplicate run of TC1)
+"""TC11 — No Source Handling
 Category  : No Source Handling
 Query type: Ambiguous
 Source    : None (empty notebook)

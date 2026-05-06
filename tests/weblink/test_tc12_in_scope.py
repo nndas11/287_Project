@@ -1,4 +1,4 @@
-"""TC12 — Single-Source Precise (duplicate run of TC2)
+"""TC12 — Single-Source Precise
 Category  : Single-Source
 Query type: Precise
 Source    : Public web (Wikipedia — Python programming language)

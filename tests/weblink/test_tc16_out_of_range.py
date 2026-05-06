@@ -1,4 +1,4 @@
-"""TC16 — Out-of-Scope Query (duplicate run of TC6)
+"""TC16 — Out-of-Scope Query
 Category  : Out-of-Scope
 Query type: Ambiguous
 Source    : Public web (Wikipedia — Python programming language)

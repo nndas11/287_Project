@@ -1,4 +1,4 @@
-"""TC19 — Table Query, Data Not Extractable (duplicate run of TC9)
+"""TC19 — Table Query, Data Not Extractable
 Category  : Table/Figure Extraction
 Query type: Precise
 Source    : Google Slides with image-only charts (no extractable text)

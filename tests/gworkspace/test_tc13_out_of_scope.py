@@ -1,4 +1,4 @@
-"""TC13 — Retrieve Exact Content, Unclear Query (duplicate run of TC3)
+"""TC13 — Retrieve Exact Content, Unclear Query
 Category  : Single-Source Retrieval
 Query type: Somewhat unclear
 Source    : Google Doc — Project Management Glossary

@@ -1,4 +1,4 @@
-"""TC19 — Partial Relevance (duplicate run of TC9)
+"""TC19 — Partial Relevance
 Category  : Partial Relevance
 Query type: Semi-precise
 Source    : Public web (Wikipedia — Software testing)

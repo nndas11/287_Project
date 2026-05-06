@@ -1,4 +1,4 @@
-"""TC20 — Unsupported Query (duplicate run of TC10)
+"""TC20 — Unsupported Query
 Category  : Unsupported
 Query type: Precise
 Source    : Public web (Wikipedia — Python programming language)

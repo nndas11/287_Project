@@ -1,4 +1,4 @@
-"""TC17 — Table Query, Full Data (duplicate run of TC7)
+"""TC17 — Table Query, Full Data
 Category  : Table/Figure Extraction
 Query type: Precise
 Source    : Google Doc with Q2 Budget table (full data available)

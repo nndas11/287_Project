@@ -1,4 +1,4 @@
-"""TC11 — Retrieve Exact Content (duplicate run of TC1)
+"""TC11 — Retrieve Exact Content
 Category  : Single-Source Retrieval
 Query type: Precise
 Source    : Google Doc — Employee Handbook (accessible, full content available)

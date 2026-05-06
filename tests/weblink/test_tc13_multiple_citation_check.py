@@ -1,4 +1,4 @@
-"""TC13 — Multi-Source Synthesized Response (duplicate run of TC3)
+"""TC13 — Multi-Source Synthesized Response
 Category  : Multi-Source
 Query type: Semi-precise
 Source    : Two public web pages (Wikipedia Python + Wikipedia JavaScript)

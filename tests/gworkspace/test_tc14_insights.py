@@ -1,4 +1,4 @@
-"""TC14 — Summarization, Single Source (duplicate run of TC4)
+"""TC14 — Summarization, Single Source
 Category  : Summarization
 Query type: Precise
 Source    : Google Doc — Annual Company Report 2024

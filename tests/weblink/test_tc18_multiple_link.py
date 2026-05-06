@@ -1,4 +1,4 @@
-"""TC18 — Relevant Retrieval (duplicate run of TC8)
+"""TC18 — Relevant Retrieval
 Category  : Relevant Retrieval
 Query type: Precise
 Source    : Public web (Wikipedia — Climate change)

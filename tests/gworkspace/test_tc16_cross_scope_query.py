@@ -1,4 +1,4 @@
-"""TC16 — Comparison Query (duplicate run of TC6)
+"""TC16 — Comparison Query
 Category  : Comparison
 Query type: Precise
 Source    : Google Doc — Product Comparison Specification Sheet

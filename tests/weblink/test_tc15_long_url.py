@@ -1,4 +1,4 @@
-"""TC15 — Invalid URL (duplicate run of TC5)
+"""TC15 — Invalid URL
 Category  : Invalid URL
 Query type: Precise
 Source    : Non-existent / syntactically invalid URL

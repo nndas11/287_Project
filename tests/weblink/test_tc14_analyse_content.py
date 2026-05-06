@@ -1,4 +1,4 @@
-"""TC14 — Restricted Link (duplicate run of TC4)
+"""TC14 — Restricted Link
 Category  : Restricted Link
 Query type: Precise
 Source    : Login-required URL (LinkedIn feed — blocked by LinkedIn's crawler policy)

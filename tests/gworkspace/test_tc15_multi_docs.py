@@ -1,4 +1,4 @@
-"""TC15 — Summarization, Multi-Source (duplicate run of TC5)
+"""TC15 — Summarization, Multi-Source
 Category  : Multi-Source Summarization
 Query type: Somewhat unclear
 Source    : Two Google Docs — Q1 Project Report + Q2 Project Report

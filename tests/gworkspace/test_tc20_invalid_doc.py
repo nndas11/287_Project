@@ -1,4 +1,4 @@
-"""TC20 — Restricted Source Query (duplicate run of TC10)
+"""TC20 — Restricted Source Query
 Category  : Restricted Source
 Query type: Precise
 Source    : Google Drive document with no sharing permissions (private)

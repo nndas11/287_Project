@@ -1,4 +1,4 @@
-"""TC12 — Retrieve Exact Content, Restricted View (duplicate run of TC2)
+"""TC12 — Retrieve Exact Content, Restricted View
 Category  : Single-Source Retrieval
 Query type: Precise
 Source    : Google Doc — Q3 Financial Report (shared as View only)

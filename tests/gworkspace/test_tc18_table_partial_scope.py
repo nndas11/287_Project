@@ -1,4 +1,4 @@
-"""TC18 — Table Query, Partial Data (duplicate run of TC8)
+"""TC18 — Table Query, Partial Data
 Category  : Table/Figure Extraction
 Query type: Somewhat unclear
 Source    : Google Doc with incomplete sales table

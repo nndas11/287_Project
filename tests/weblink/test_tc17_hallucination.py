@@ -1,4 +1,4 @@
-"""TC17 — Hallucination Check (duplicate run of TC7)
+"""TC17 — Hallucination Check
 Category  : Hallucination
 Query type: Ambiguous (references a fictional entity)
 Source    : Public web (Wikipedia — Climate change)
