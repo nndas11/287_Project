@@ -10,6 +10,7 @@ from tests.weblink.helpers import (
     open_notebook, send_query_and_get_response, citation_count,
 )
 
+
 NOTEBOOK_NAME = "WebTest - No Source"
 TEST_QUERY = "Summarize the main topics covered in this notebook."
 
