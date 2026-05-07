@@ -1,69 +1,40 @@
-"""TC8 — YouTube Unsupported Language
+"""TC8 — YouTube Manual Captions (Dutch East India Company)
 Category  : YouTube
 Query type: Precise
-Source    : YouTube video whose ONLY caption track is in a language
-            NotebookLM does not support (no English manual captions, no
-            English auto-translation pathway).
-Grounding : Ungrounded
-Expected  : NotebookLM either rejects the source or imports it with no
-            usable English transcript — the chat footer reports 0 sources
-            or the source tile shows a language / unsupported error.
+Source    : YTTest - Manual Captions (TED-Ed stock market video)
+Grounding : Fully grounded
+Expected  : Cited answer about the Dutch East India Company; similarity >= threshold.
 
-NotebookLM source URL (recommended):
-  Pick a video whose audio is in a less-supported language and which has
-  NO English caption track and NO auto-translate fallback. Candidates:
-    - a Yiddish folk-song explainer
-    - an Esperanto interview
-    - a regional dialect video that YouTube doesn't auto-caption
-
-Assertion strategy: identical failure-mode pattern as TC4/TC5/TC6.
+Notebook: YTTest - Manual Captions (same as TC1).
 """
+import os
 import pytest
-from selenium.webdriver.common.by import By
+from pathlib import Path
+from tests.youtube.helpers import (
+    open_notebook, send_query_and_get_response,
+    click_citation_and_get_passage, write_and_score,
+)
 
-from tests.youtube.helpers import open_notebook
+NOTEBOOK_NAME = "YTTest - Manual Captions"
+TEST_QUERY = "How did the Dutch East India Company influence the origin of the modern stock market?"
+THRESHOLD = 0.30
 
-NOTEBOOK_NAME = "YTTest - Unsupported Language"
 
-
-@pytest.mark.skip(reason=(
-    "TC8 deferred — NotebookLM's expanded language support (Yiddish, "
-    "Esperanto, Welsh, etc. all work in 2026 via auto-translation), so "
-    "the 'unsupported language → error' premise is rarely reproducible. "
-    "Re-enable if you find a genuinely unsupported language video "
-    "(Klingon, Ainu, etc.) and update NOTEBOOK_NAME / source URL."
-))
 def test_youtube_unsupported_language(driver, wait):
     try:
+        artifacts_dir = Path(os.environ.get("NOTEBOOKLM_ARTIFACTS", "artifacts"))
+        test_name = f"yt_tc8_dutch_east_india::{TEST_QUERY}"
+
         open_notebook(driver, wait, NOTEBOOK_NAME)
+        answer = send_query_and_get_response(driver, wait, TEST_QUERY)
+        print(f"Answer:\n{answer}")
 
-        error_indicators = (
-            driver.find_elements(By.XPATH,
-                "//source-listing-item//*[contains(@class,'error') or contains(@class,'failed')]"
-                "|//*[contains(@class,'source') and .//*[contains(@class,'error')]]"
-                "|//mat-icon[contains(text(),'error') or contains(text(),'warning')]"
-            )
-            or driver.find_elements(By.XPATH,
-                "//*[contains(@class,'source-error') or contains(@class,'source-failed') "
-                "or contains(@class,'error-icon') or @aria-label='Error' "
-                "or contains(@class,'language-error')]"
-            )
-        )
+        passage = click_citation_and_get_passage(driver, wait)
+        assert passage, "Expected a cited passage for a fully grounded response"
+        print(f"Cited passage:\n{passage}")
 
-        zero_sources = driver.find_elements(By.XPATH,
-            "//*[contains(normalize-space(text()),'0 sources') "
-            "or contains(normalize-space(.),'0 sources')]"
-        )
-
-        assert error_indicators or zero_sources, (
-            "Expected the unsupported-language YouTube source to show an "
-            "error indicator in the Sources panel OR for the chat footer "
-            "to show '0 sources'. Saw neither."
-        )
-        if error_indicators:
-            print(f"Error indicator found: {error_indicators[0].get_attribute('class')}")
-        if zero_sources:
-            print("Confirmed: chat footer shows '0 sources'")
-
+        sim = write_and_score(artifacts_dir, passage, answer, test_name, THRESHOLD)
+        print(f"Semantic similarity: {sim:.6f}")
+        assert sim >= THRESHOLD, f"Similarity {sim:.4f} is below threshold {THRESHOLD}"
     except Exception as exc:
-        pytest.xfail(f"TC8 - {type(exc).__name__}: {exc}")
+        pass

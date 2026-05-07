@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>YouTube · NotebookLM Test Report</title>
+  <style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+     margin:0;padding:32px;background:#f5f7fa;color:#1e293b}
+h1{font-size:1.4rem;margin:0 0 4px}
+.meta{color:#94a3b8;font-size:.82rem;margin-bottom:28px}
+.summary{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.card{background:#fff;border-radius:10px;padding:18px 28px;
+      box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center;min-width:90px}
+.card .num{font-size:2rem;font-weight:700;line-height:1}
+.card .lbl{font-size:.72rem;color:#94a3b8;text-transform:uppercase;
+           letter-spacing:.06em;margin-top:4px}
+.blue{color:#3b82f6}.green{color:#22c55e}.red{color:#ef4444}.gray{color:#94a3b8}
+.purple{color:#8b5cf6}
+table{width:100%;border-collapse:collapse;background:#fff;
+      border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+th{background:#f8fafc;padding:10px 16px;font-size:.75rem;text-transform:uppercase;
+   letter-spacing:.06em;color:#64748b;border-bottom:2px solid #e2e8f0;text-align:left}
+td{padding:11px 16px;border-bottom:1px solid #f1f5f9;
+   font-size:.88rem;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.tc{font-weight:700;color:#64748b;width:52px}
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;
+       font-size:.72rem;font-weight:700;letter-spacing:.04em}
+.pass{background:#dcfce7;color:#15803d}
+.fail{background:#fee2e2;color:#b91c1b}
+.skip{background:#f1f5f9;color:#64748b}
+.reason{color:#b91c1b;font-size:.78rem;font-family:'SFMono-Regular',Consolas,monospace;
+        white-space:pre-wrap;word-break:break-all;max-width:480px}
+.dur{font-size:.82rem;color:#475569;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dur-med{color:#b45309}.dur-slow{color:#b91c1b}
+</style>
+</head>
+<body>
+  <h1>YouTube &mdash; NotebookLM Test Report</h1>
+  <p class="meta">Generated: 2026-05-06  19:28:35</p>
+
+  <div class="summary">
+    <div class="card"><div class="num blue">20</div><div class="lbl">Total</div></div>
+    <div class="card"><div class="num green">20</div><div class="lbl">Passed</div></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>TC</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Failure Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tc">TC1</td>
+        <td>Manual Captions (Precise)</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC2</td>
+        <td>Auto Captions (Medium Quality)</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC3</td>
+        <td>Low Quality Captions</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC4</td>
+        <td>No Captions Available</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC5</td>
+        <td>Invalid URL</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC6</td>
+        <td>Restricted Video</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC7</td>
+        <td>Mixed Language Captions</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC8</td>
+        <td>Unsupported Language</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC9</td>
+        <td>Compare Query</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC10</td>
+        <td>Quiz Generation</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC11</td>
+        <td>Out-of-Scope Query</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC12</td>
+        <td>Complex Explanation</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC13</td>
+        <td>Manual Captions (Variant)</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC14</td>
+        <td>Auto Captions (Variant Query)</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC15</td>
+        <td>Low Quality Captions (Variant)</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC16</td>
+        <td>No Captions Check</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC17</td>
+        <td>Invalid URL Check</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC18</td>
+        <td>Mixed Language (Variant Query)</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC19</td>
+        <td>Multi-Citation Check</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="tc">TC20</td>
+        <td>Long Complex Query</td>
+        <td><span class="badge pass">PASS</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

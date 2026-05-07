@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 # Persistent Selenium session profile — Google session is saved here after first login.
 # Chrome's security policy blocks DevTools on the real default profile, so we use
 # a separate directory. First run requires a one-time manual login in the Chrome window.
-SESSION_PROFILE = "/tmp/notebooklm-selenium-session"
+SESSION_PROFILE = "/tmp/notebooklm-selenium-session-2"
 
 
 @pytest.fixture(scope="session")
