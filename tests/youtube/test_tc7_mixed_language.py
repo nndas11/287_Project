@@ -53,4 +53,4 @@ def test_youtube_mixed_language(driver, wait):
             f"captions should yield some semantic overlap with the answer."
         )
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

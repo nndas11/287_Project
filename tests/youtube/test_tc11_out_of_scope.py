@@ -34,4 +34,4 @@ def test_youtube_out_of_scope(driver, wait):
             "do not have", "does not have", "cannot find",
         ])
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

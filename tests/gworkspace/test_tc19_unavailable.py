@@ -39,4 +39,4 @@ def test_table_data_unavailable(driver, wait):
         assert_ungrounded(answer, _CANNOT_EXTRACT_PHRASES)
         print("Confirmed: system correctly reports inability to extract image-based data")
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

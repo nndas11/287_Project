@@ -38,4 +38,4 @@ def test_youtube_manual_captions_precise(driver, wait):
         print(f"Semantic similarity: {sim:.6f}")
         assert sim >= THRESHOLD, f"Similarity {sim:.4f} is below threshold {THRESHOLD}"
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

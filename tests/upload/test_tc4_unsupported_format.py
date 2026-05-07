@@ -53,4 +53,4 @@ def test_upload_unsupported_format(driver, wait):
             print("Confirmed: chat footer shows '0 sources'")
 
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

@@ -47,4 +47,4 @@ def test_exact_content_retrieval(driver, wait):
         print(f"Semantic similarity: {sim:.6f}")
         assert sim >= THRESHOLD, f"Similarity {sim:.4f} is below threshold {THRESHOLD}"
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

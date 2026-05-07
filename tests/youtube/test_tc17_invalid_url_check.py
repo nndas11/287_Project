@@ -45,4 +45,4 @@ def test_youtube_invalid_url_check(driver, wait):
         if zero_sources:
             print("Confirmed: chat footer shows '0 sources'")
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

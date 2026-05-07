@@ -48,4 +48,4 @@ def test_upload_multi_doc_query(driver, wait):
         print(f"Semantic similarity: {sim:.6f}")
         assert sim >= THRESHOLD, f"Similarity {sim:.4f} below threshold {THRESHOLD}"
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

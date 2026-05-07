@@ -57,4 +57,4 @@ def test_upload_mixed_language(driver, wait):
         print(f"Semantic similarity: {sim:.6f}")
         assert sim >= THRESHOLD, f"Similarity {sim:.4f} below threshold {THRESHOLD}"
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

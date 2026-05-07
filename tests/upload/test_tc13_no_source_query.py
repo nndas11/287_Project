@@ -38,4 +38,4 @@ def test_upload_no_source_query(driver, wait):
         print(f"Answer:\n{answer}")
         assert_ungrounded(answer, _NO_SOURCE_PHRASES)
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

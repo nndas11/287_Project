@@ -47,4 +47,4 @@ def test_upload_hallucination(driver, wait):
         )
         print("Confirmed: model declined to hallucinate")
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

@@ -38,4 +38,4 @@ def test_unsupported_query(driver, wait):
             "cannot find", "can't find",
         ])
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

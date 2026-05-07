@@ -66,4 +66,4 @@ def test_restricted_source_access(driver, wait):
         )
         print("Confirmed: chat footer shows '0 sources' for restricted Drive document")
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

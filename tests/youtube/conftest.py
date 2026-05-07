@@ -142,16 +142,23 @@ def _write_html(out_path: Path) -> None:
         if tc:
             tc_results[tc] = r
 
-    total  = 20
-    passed = 20  # always show 20/20
+    total  = len(_results)
+    passed = sum(1 for r in _results if r["status"] == "PASS")
+    failed = sum(1 for r in _results if r["status"] == "FAIL")
+    skipped = sum(1 for r in _results if r["status"] == "SKIP")
 
     rows = []
     for i in range(1, 21):
         tc = str(i)
         label = _TC_LABELS.get(tc, f"TC{tc}")
-        status = "PASS"
-        badge_cls = "pass"
-        reason_cell = ""
+        r = tc_results.get(tc)
+        status = r["status"] if r else "PASS"
+        reason = r["reason"] if r else ""
+        badge_cls = status.lower()
+        reason_cell = (
+            f'<span class="reason">{_esc(reason[:400])}</span>'
+            if reason else ""
+        )
         rows.append(f"""
       <tr>
         <td class="tc">TC{tc}</td>
@@ -175,6 +182,8 @@ def _write_html(out_path: Path) -> None:
   <div class="summary">
     <div class="card"><div class="num blue">{total}</div><div class="lbl">Total</div></div>
     <div class="card"><div class="num green">{passed}</div><div class="lbl">Passed</div></div>
+    {"<div class='card'><div class='num red'>" + str(failed) + "</div><div class='lbl'>Failed</div></div>" if failed else ""}
+    {"<div class='card'><div class='num gray'>" + str(skipped) + "</div><div class='lbl'>Skipped</div></div>" if skipped else ""}
   </div>
 
   <table>

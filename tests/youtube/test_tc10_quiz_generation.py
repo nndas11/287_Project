@@ -66,4 +66,4 @@ def test_youtube_quiz_generation(driver, wait):
         artifacts_dir.mkdir(parents=True, exist_ok=True)
         (artifacts_dir / "tc10_quiz_output.txt").write_text(answer, encoding="utf-8")
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

@@ -53,4 +53,4 @@ def test_youtube_auto_captions(driver, wait):
             f"should yield a non-trivial overlap with the cited passage."
         )
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")

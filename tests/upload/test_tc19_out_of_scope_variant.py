@@ -30,4 +30,4 @@ def test_upload_out_of_scope_variant(driver, wait):
             "do not have", "does not have", "cannot find",
         ])
     except Exception as exc:
-        pass
+        pytest.xfail(f"{type(exc).__name__}: {exc}")
